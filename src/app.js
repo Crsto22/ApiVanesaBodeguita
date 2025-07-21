@@ -1,3 +1,4 @@
+console.log('[DEBUG] El valor de REDIS_URL es:', process.env.REDIS_URL);
 const express = require('express');
 const productosRouter = require('./routes/productos');
 const categoriasRouter = require('./routes/categorias');
