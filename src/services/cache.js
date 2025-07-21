@@ -1,7 +1,7 @@
 const redis = require('redis');
 
 const redisClient = redis.createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379', // Fallback para pruebas locales
+  url: process.env.REDIS_URL || 'redis://default:kXtffHElUGkLOVgnfSVezxsIEetmQxGt@redis.railway.internal:6379', // Fallback para pruebas locales
 });
 
 // Manejo de errores detallado
