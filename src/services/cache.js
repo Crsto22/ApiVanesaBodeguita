@@ -1,8 +1,11 @@
 const redis = require('redis');
 
-// Esta línea ahora depende 100% de la variable de entorno de Railway.
-// Si REDIS_URL no está definida, la aplicación fallará al iniciar,
-// lo cual es bueno porque te avisa de un error de configuración.
+// Asegúrate de que la variable de entorno REDIS_URL está disponible.
+if (!process.env.REDIS_URL) {
+  throw new Error('La variable de entorno REDIS_URL no está definida.');
+}
+
+// Crear el cliente de Redis usando la URL de Railway.
 const redisClient = redis.createClient({
   url: process.env.REDIS_URL,
 });
@@ -12,10 +15,14 @@ redisClient.on('error', (err) => {
 });
 
 redisClient.on('connect', () => {
-  // El log te mostrará la URL interna de Railway
   console.log('Conectado exitosamente a Redis en Railway.');
 });
 
-redisClient.connect().catch(console.error);
+// Intentar conectar al iniciar la aplicación.
+redisClient.connect().catch((err) => {
+    console.error('Fallo crítico al conectar con Redis:', err);
+    // En un entorno de producción, podrías querer que la aplicación se detenga si Redis es esencial.
+    // process.exit(1); 
+});
 
 module.exports = redisClient;
