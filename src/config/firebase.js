@@ -14,6 +14,6 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp); // No necesitas el segundo argumento 'negociovanesa' aquí
+const db = getFirestore(app, 'negociovanesa');
 
 module.exports = { db };
