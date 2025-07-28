@@ -1,0 +1,28 @@
+{
+  "name": "api-vanesa-bodeguita",
+  "version": "1.0.0",
+  "description": "API REST para Vanesa Bodeguita con caché optimizado",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["api", "express", "firestore", "cache", "bodeguita"],
+  "author": "Cristofer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "firebase-admin": "^12.0.0",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.1.0",
+    "compression": "^1.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
