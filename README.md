@@ -2,13 +2,26 @@
 
 API REST optimizada para la bodeguita de Vanesa, diseñada para minimizar costos de Firestore mediante un sistema de caché inteligente.
 
-## 🚀 Características
+## � Configuración Segura
+
+⚠️ **IMPORTANTE**: Esta API usa **SOLO variables de entorno** para las credenciales de Firebase. **NUNCA** se suben archivos JSON con credenciales al repositorio.
+
+### Configuración para Desarrollo:
+1. Copia `.env.example` como `.env`
+2. Completa `FIREBASE_SERVICE_ACCOUNT_KEY` con tu JSON de Firebase
+3. El archivo `.env` está en `.gitignore` y NO se sube a GitHub
+
+### Configuración para Producción (Fly.io):
+Usa los secrets de Fly.io (ver sección de Deploy)
+
+## �🚀 Características
 
 - **Caché inteligente**: Reduce las consultas a Firestore hasta en un 95%
 - **6 APIs optimizadas**: Productos, búsqueda, categorías, grupos, etc.
 - **Costos mínimos**: Diseñada para el plan gratuito de Fly.io
 - **Alta performance**: Respuestas en milisegundos gracias al caché en memoria
 - **Escalable**: Fácil de escalar cuando sea necesario
+- **Seguridad**: Credenciales manejadas solo por variables de entorno
 
 ## 📋 APIs Disponibles
 

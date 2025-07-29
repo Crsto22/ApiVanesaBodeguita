@@ -11,13 +11,35 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Credenciales de Firebase (IMPORTANTE: No subir a repositorio)
+*firebase-adminsdk*.json
+firebase-credentials.json
+serviceAccountKey.json
+
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Archivos temporales
 .tmp/
 .cache/
+.DS_Store
+Thumbs.db
+
+# Archivos del editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Archivos del sistema
 .DS_Store

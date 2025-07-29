@@ -10,9 +10,13 @@ function initializeFirebase() {
 
   try {
     const projectId = process.env.FIREBASE_PROJECT_ID || 'bodeguitavanesa';
+    const isProduction = process.env.NODE_ENV === 'production';
     
-    // Para producción - usar variables de entorno (Fly.io secrets)
+    console.log(`🔧 Inicializando Firebase para entorno: ${isProduction ? 'PRODUCCIÓN' : 'DESARROLLO'}`);
+    
+    // SIEMPRE usar variables de entorno por seguridad
     if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      console.log('🔑 Usando credenciales de variable de entorno (SEGURO)');
       const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
@@ -20,27 +24,20 @@ function initializeFirebase() {
         databaseURL: `https://${projectId}.firebaseio.com`
       });
     }
-    // Para desarrollo local - usar archivo de credenciales (si existe)
-    else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH && require('fs').existsSync(process.env.FIREBASE_SERVICE_ACCOUNT_PATH)) {
-      const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        projectId: projectId,
-        databaseURL: `https://${projectId}.firebaseio.com`
-      });
-    }
-    // Para Fly.io con Application Default Credentials
     else {
-      admin.initializeApp({
-        projectId: projectId
-      });
+      throw new Error('🚨 FIREBASE_SERVICE_ACCOUNT_KEY no encontrada. Configura esta variable de entorno por seguridad.');
     }
 
     isInitialized = true;
     
     console.log(`🔥 Firebase Admin SDK inicializado correctamente para proyecto: ${projectId}`);
+    console.log(`📊 Modo: ${isProduction ? 'PRODUCCIÓN' : 'DESARROLLO'}`);
+    console.log('🔒 Usando credenciales seguras desde variables de entorno');
   } catch (error) {
-    console.error('❌ Error inicializando Firebase:', error);
+    console.error('❌ Error inicializando Firebase:', error.message);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('🔍 Stack trace:', error.stack);
+    }
     throw error;
   }
 }
