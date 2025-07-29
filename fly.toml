@@ -3,7 +3,6 @@ app = 'apibodeguita'
 primary_region = 'mia'  # Miami - más cerca de Latinoamérica
 
 [build]
-  dockerfile = "Dockerfile"
 
 [env]
   NODE_ENV = 'production'
