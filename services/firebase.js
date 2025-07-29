@@ -17,12 +17,24 @@ function initializeFirebase() {
     // SIEMPRE usar variables de entorno por seguridad
     if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
       console.log('🔑 Usando credenciales de variable de entorno (SEGURO)');
-      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        projectId: projectId,
-        databaseURL: `https://${projectId}.firebaseio.com`
-      });
+      
+      // Debug: Mostrar los primeros caracteres para diagnosticar
+      const keyValue = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+      console.log(`🔍 DEBUG - Primeros 50 caracteres: "${keyValue.substring(0, 50)}"`);
+      console.log(`🔍 DEBUG - Longitud total: ${keyValue.length}`);
+      
+      try {
+        const serviceAccount = JSON.parse(keyValue);
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+          projectId: projectId,
+          databaseURL: `https://${projectId}.firebaseio.com`
+        });
+      } catch (parseError) {
+        console.error('🚨 Error parseando JSON:', parseError.message);
+        console.log(`🔍 Contenido completo de la variable: "${keyValue}"`);
+        throw parseError;
+      }
     }
     else {
       throw new Error('🚨 FIREBASE_SERVICE_ACCOUNT_KEY no encontrada. Configura esta variable de entorno por seguridad.');
