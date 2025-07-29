@@ -1,8 +1,9 @@
 # Configuración de la aplicación para Fly.io
-app = 'api-vanesa-bodeguita'
+app = 'apibodeguita'
 primary_region = 'mia'  # Miami - más cerca de Latinoamérica
 
 [build]
+  dockerfile = "Dockerfile"
 
 [env]
   NODE_ENV = 'production'
@@ -27,6 +28,3 @@ primary_region = 'mia'  # Miami - más cerca de Latinoamérica
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
-
-[[vm.env]]
-  FIREBASE_PROJECT_ID = 'negociovanesa'
